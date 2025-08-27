@@ -27,6 +27,7 @@ for (const copy of copyCount) {
         btn.innerText = "Copied!";
 
         setTimeout(() => btn.innerText = oldText, 1500);
+        return
 
     });
 }
@@ -60,8 +61,8 @@ for (const callbtn of allCallButtons) {
         const callHistory = document.getElementById("history");
         const newHistory = document.createElement("div");
         newHistory.innerHTML = `
-            <div class="bg-[#F5FFF6] rounded-lg p-5 flex justify-between items-center mx-4 mt-2">
-                <div>
+            <div class="bg-[#F5FFF6] rounded-lg p-4 flex  justify-between items-center mx-2 mt-2">
+                <div class="flex-1 min-w-0">
                     <h1 class="font-bold">${serviceName}</h1>
                     <p>${serviceNumber}</p>
                 </div>
@@ -72,6 +73,7 @@ for (const callbtn of allCallButtons) {
     });
 }
 
+// clear button
 document.getElementById("clear-btn").addEventListener("click", function (e) {
     e.preventDefault()
     const callHistory = document.getElementById("history");
