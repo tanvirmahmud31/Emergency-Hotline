@@ -1,13 +1,57 @@
 
+
+// navbar a hearts count
 let count = 0;
-
-// সবগুলো heart element নেবো
 const allHearts = document.getElementsByClassName("hearts");
-
-// প্রতিটা heart এ আলাদা করে event listener বসাবো
 for (const heart of allHearts) {
-  heart.addEventListener("click", function () {
-    count++;
-    document.getElementById("heart-count").innerText = count;
-  });
+    heart.addEventListener("click", function () {
+        count++;
+        document.getElementById("heart-count").innerText = count;
+    });
 }
+
+// call section
+const coinsElem = document.getElementById("coins");
+let totalCoins = parseInt(coinsElem.innerText);
+
+const allCallButtons = document.getElementsByClassName("call-btn");
+
+for (const callbtn of allCallButtons) {
+    callbtn.addEventListener("click", function () {
+        const card = this.parentElement.parentElement;
+
+        const serviceName =
+            card.getElementsByClassName("service-name")[0].innerText;
+        const serviceNumber =
+            card.getElementsByClassName("service-number")[0].innerText;
+
+        if (totalCoins >= 20) {
+            totalCoins -= 20;
+            coinsElem.innerText = totalCoins;
+            alert(`📞 Calling ${serviceName} at ${serviceNumber} ...`);
+        } else {
+            alert("Insufficient balance");
+            return; 
+        }
+
+        // Add call to history
+        const callHistory = document.getElementById("history"); 
+        const newHistory = document.createElement("div");
+        newHistory.innerHTML = `
+            <div class="bg-[#F5FFF6] rounded-lg p-5 flex justify-between items-center mx-4 mt-2">
+                <div>
+                    <h1 class="font-bold">${serviceName}</h1>
+                    <p>${serviceNumber}</p>
+                </div>
+                <p>${new Date().toLocaleTimeString()}</p>
+            </div>
+        `;
+        callHistory.appendChild(newHistory);
+    });
+}
+
+document.getElementById("clear-btn").addEventListener("click",function(e){
+e.preventDefault()
+const callHistory = document.getElementById("history");
+    callHistory.innerHTML = "";
+})
